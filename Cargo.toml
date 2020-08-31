@@ -1,5 +1,5 @@
 [package]
-name = "rust_3d"
+name = "rust_3dm"
 version = "0.1.0"
 authors = ["Martin Hedberg <96mah002@gmail.com>"]
 edition = "2018"

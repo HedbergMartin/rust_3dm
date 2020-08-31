@@ -1,4 +1,4 @@
-# Rust 3D
+# Rust 3Dm
 State-of-the-art 3D math library for the Rust programming language. Created with love by Martin Hedberg.
 
 ## Words about Martin's library

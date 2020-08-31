@@ -32,6 +32,10 @@ macro_rules! vector {
 			pub fn dot(lhs: Self, rhs: Self) -> VecType {
 				strip_plus!($(+ (lhs.$attributes * rhs.$attributes))*)
 			}
+
+			pub fn len(&self) -> VecType {
+				(strip_plus!($(+ (self.$attributes * self.$attributes))*)).sqrt()
+			}
 		}
 		
 		impl std::ops::Add for $name {

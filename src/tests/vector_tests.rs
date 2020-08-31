@@ -64,3 +64,18 @@ fn vector_cross() {
 	let res = Vector3 {x: 66.0, y: 3.0, z: 62.0 };
 	assert_eq!(Vector3::cross(v, v2), res);
 }
+
+#[test]
+fn vector_cross_unit() {
+	let v = Vector3 { x: 1.0, y: 0.0, z: 0.0 };
+	let v2 = Vector3 {x: 0.0, y: 1.0, z: 0.0 };
+	let res = Vector3 {x: 0.0, y: 0.0, z: 1.0 };
+	assert_eq!(Vector3::cross(v, v2), res);
+}
+
+#[test]
+fn vector_len() {
+	let v = Vector3 { x: 3.0, y: -2.0, z: 6.0 };
+	let res = v.len();
+	assert_eq!(7.0, res);
+}

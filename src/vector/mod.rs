@@ -2,9 +2,15 @@
 // Used to easily be able to improve precition if needed.
 type VecType = f32;
 
+macro_rules! strip_plus {
+    (+ $($rest: tt)*) => {
+        $($rest)*
+    }
+}
+
 #[macro_use]
 macro_rules! vector {
-	($name:ident; $($attributes:ident),*) => {
+	($name:ident; $($attributes:tt),*) => {
 		#[derive(Debug, Copy, Clone, PartialEq)]
 		pub struct $name {
 			$(pub $attributes: VecType,)*
@@ -21,6 +27,10 @@ macro_rules! vector {
 				Self {
 					$($attributes: value,)*
 				}
+			}
+
+			pub fn dot(lhs: Self, rhs: Self) -> VecType {
+				strip_plus!($(+ (lhs.$attributes * rhs.$attributes))*)
 			}
 		}
 		

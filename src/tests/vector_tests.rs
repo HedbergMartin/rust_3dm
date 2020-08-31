@@ -45,6 +45,14 @@ fn vector_mult() {
 fn vector_div() {
 	let v = Vector3::fill(3.0);
 	let v2 = Vector3 { x: 6.0, y: -2.0, z: 8.0 };
-	let res = Vector3 {x: 0.5, y: -1.5, z: 0.375};
+	let res = Vector3 {x: 0.5, y: -1.5, z: 0.375 };
 	assert_eq!(v / v2, res);
+}
+
+#[test]
+fn vector_dot() {
+	let v = Vector3 { x: 3.0, y: -4.0, z: -3.0 };
+	let v2 = Vector3 {x: 2.0, y: 18.0, z: -3.0 };
+	let res = -57.0;
+	assert_eq!(Vector3::dot(v, v2), res);
 }

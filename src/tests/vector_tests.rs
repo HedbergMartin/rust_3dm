@@ -34,7 +34,7 @@ fn vector_sub() {
 }
 
 #[test]
-fn vector_mult() {
+fn vector_mul() {
 	let v = Vector3::fill(2.0);
 	let v2 = Vector3 { x: 1.0, y: 3.5, z: -2.0 };
 	let res = Vector3 {x: 2.0, y: 7.0, z: -4.0};
@@ -78,4 +78,39 @@ fn vector_len() {
 	let v = Vector3 { x: 3.0, y: -2.0, z: 6.0 };
 	let res = v.len();
 	assert_eq!(7.0, res);
+}
+
+#[test]
+fn vector_unit() {
+	let v = Vector3 { x: 2.0, y: -4.0, z: 4.0 };
+	let res = Vector3 { x: 1.0/3.0, y: -2.0/3.0, z: 2.0/3.0 };
+	assert_eq!(v.unit(), res);
+}
+
+#[test]
+fn vector_add_f() {
+	let v = Vector3::fill(3.2).add_f(2.3);
+	let res = Vector3::fill(5.5);
+	assert_eq!(v, res);
+}
+
+#[test]
+fn vector_sub_f() {
+	let v = Vector3::fill(3.2).sub_f(2.4);
+	let res = Vector3::fill(0.8);
+	assert_eq!(v, res);
+}
+
+#[test]
+fn vector_mul_f() {
+	let v = Vector3::fill(2.0).mul_f(1.5);
+	let res = Vector3::fill(3.0);
+	assert_eq!(v, res);
+}
+
+#[test]
+fn vector_div_f() {
+	let v = Vector3::fill(3.0).div_f(2.0);
+	let res = Vector3::fill(1.5);
+	assert_eq!(v, res);
 }

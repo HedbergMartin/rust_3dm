@@ -2,6 +2,8 @@
 // Used to easily be able to improve precition if needed.
 type VecType = f32;
 
+use crate::FloatEq;
+
 macro_rules! strip_plus {
     (+ $($rest: tt)*) => {
         $($rest)*
@@ -11,7 +13,7 @@ macro_rules! strip_plus {
 #[macro_use]
 macro_rules! vector {
 	($name:ident; $($attributes:tt),*) => {
-		#[derive(Debug, Copy, Clone, PartialEq)]
+		#[derive(Debug, Copy, Clone)]
 		pub struct $name {
 			$(pub $attributes: VecType,)*
 		}
@@ -35,6 +37,27 @@ macro_rules! vector {
 
 			pub fn len(&self) -> VecType {
 				(strip_plus!($(+ (self.$attributes * self.$attributes))*)).sqrt()
+			}
+
+			pub fn add_f(&self, add: VecType) -> Self {
+				Self {$($attributes: self.$attributes + add),*}
+			}
+
+			pub fn sub_f(&self, sub: VecType) -> Self {
+				Self {$($attributes: self.$attributes - sub),*}
+			}
+
+			pub fn mul_f(&self, mul: VecType) -> Self {
+				Self {$($attributes: self.$attributes * mul),*}
+			}
+
+			pub fn div_f(&self, div: VecType) -> Self {
+				Self {$($attributes: self.$attributes / div),*}
+			}
+
+			pub fn unit(&self) -> Self {
+				let l = self.len();
+				Self {$($attributes: self.$attributes / l),*}
 			}
 		}
 		
@@ -67,6 +90,12 @@ macro_rules! vector {
 		
 			fn div(self, rhs: Self) -> Self::Output {
 				Self {$($attributes: self.$attributes / rhs.$attributes),*}
+			}
+		}
+
+		impl PartialEq for $name {
+			fn eq(&self, other: &Self) -> bool {
+				$(self.$attributes.equals(other.$attributes))&&*
 			}
 		}
 	};

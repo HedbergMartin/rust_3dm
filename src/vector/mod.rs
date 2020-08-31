@@ -71,5 +71,14 @@ macro_rules! vector {
 vector!(Vector2; x, y);
 vector!(Vector3; x, y, z);
 vector!(Vector4; x, y, z, w);
+impl Vector3 {
+	pub fn cross(a: Self, b: Self) -> Self {
+		Self {
+			x: (a.y * b.z) - (a.z * b.y),
+			y: -((a.x * b.z) - (a.z * b.x)),
+			z: (a.x * b.y) - (a.y * b.x),
+		}
+	}
+}
 
 

@@ -56,3 +56,11 @@ fn vector_dot() {
 	let res = -57.0;
 	assert_eq!(Vector3::dot(v, v2), res);
 }
+
+#[test]
+fn vector_cross() {
+	let v = Vector3 { x: 3.0, y: -4.0, z: -3.0 };
+	let v2 = Vector3 {x: 2.0, y: 18.0, z: -3.0 };
+	let res = Vector3 {x: 66.0, y: 3.0, z: 62.0 };
+	assert_eq!(Vector3::cross(v, v2), res);
+}

@@ -1,9 +1,9 @@
 
-type MatType = f32;
+use crate::Float;
 
 #[derive(Debug, Copy, Clone, PartialEq)]
 pub struct Matrix {
-	pub values: [MatType; 16],
+	pub values: [Float; 16],
 }
 
 impl Matrix {
@@ -13,7 +13,7 @@ impl Matrix {
 		}
 	}
 
-	pub fn fill(value: MatType) -> Self {
+	pub fn fill(value: Float) -> Self {
 		Self {
 			values: [value; 16],
 		}
@@ -31,7 +31,7 @@ impl Matrix {
 		}
 	}
 	
-	pub fn from(values: [MatType; 16]) -> Self {
+	pub fn from(values: [Float; 16]) -> Self {
 		Self {
 			values,
 		}

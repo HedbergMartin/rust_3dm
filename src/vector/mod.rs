@@ -1,7 +1,5 @@
 
-// Used to easily be able to improve precition if needed.
-type VecType = f32;
-
+use crate::Float;
 use crate::FloatEq;
 
 macro_rules! strip_plus {
@@ -15,7 +13,7 @@ macro_rules! vector {
 	($name:ident; $($attributes:tt),*) => {
 		#[derive(Debug, Copy, Clone)]
 		pub struct $name {
-			$(pub $attributes: VecType,)*
+			$(pub $attributes: Float,)*
 		}
 
 		impl $name {
@@ -25,33 +23,33 @@ macro_rules! vector {
 				}
 			}
 		
-			pub fn fill(value: VecType) -> Self {
+			pub fn fill(value: Float) -> Self {
 				Self {
 					$($attributes: value,)*
 				}
 			}
 
-			pub fn dot(lhs: Self, rhs: Self) -> VecType {
+			pub fn dot(lhs: Self, rhs: Self) -> Float {
 				strip_plus!($(+ (lhs.$attributes * rhs.$attributes))*)
 			}
 
-			pub fn len(&self) -> VecType {
+			pub fn len(&self) -> Float {
 				(strip_plus!($(+ (self.$attributes * self.$attributes))*)).sqrt()
 			}
 
-			pub fn add_f(&self, add: VecType) -> Self {
+			pub fn add_f(&self, add: Float) -> Self {
 				Self {$($attributes: self.$attributes + add),*}
 			}
 
-			pub fn sub_f(&self, sub: VecType) -> Self {
+			pub fn sub_f(&self, sub: Float) -> Self {
 				Self {$($attributes: self.$attributes - sub),*}
 			}
 
-			pub fn mul_f(&self, mul: VecType) -> Self {
+			pub fn mul_f(&self, mul: Float) -> Self {
 				Self {$($attributes: self.$attributes * mul),*}
 			}
 
-			pub fn div_f(&self, div: VecType) -> Self {
+			pub fn div_f(&self, div: Float) -> Self {
 				Self {$($attributes: self.$attributes / div),*}
 			}
 
@@ -104,6 +102,7 @@ macro_rules! vector {
 vector!(Vector2; x, y);
 vector!(Vector3; x, y, z);
 vector!(Vector4; x, y, z, w);
+
 impl Vector3 {
 	pub fn cross(a: Self, b: Self) -> Self {
 		Self {
@@ -111,6 +110,20 @@ impl Vector3 {
 			y: -((a.x * b.z) - (a.z * b.x)),
 			z: (a.x * b.y) - (a.y * b.x),
 		}
+	}
+
+	pub fn as_vec4(&self) -> Vector4 {
+		Vector4 {x: self.x, y: self.y, z: self.z, w: 0.0 }
+	}
+}
+
+impl Vector2 {
+	pub fn as_vec4(&self) -> Vector4 {
+		Vector4 {x: self.x, y: self.y, z: 0.0, w: 0.0 }
+	}
+
+	pub fn as_vec3(&self) -> Vector3 {
+		Vector3 {x: self.x, y: self.y, z: 0.0 }
 	}
 }
 

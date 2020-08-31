@@ -10,7 +10,7 @@ mod vector_tests;
 #[path = "./tests/matrix_tests.rs"]
 mod matrix_tests;
 
-
+type Float = f32;
 			
 pub trait FloatEq<Other = Self> {
 	fn equals(&self, other: Other) -> bool;

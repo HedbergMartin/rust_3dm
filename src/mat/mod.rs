@@ -1,7 +1,8 @@
 
 use crate::Float;
+use crate::FloatEq;
 
-#[derive(Debug, Copy, Clone, PartialEq)]
+#[derive(Debug, Copy, Clone)]
 pub struct Matrix {
 	pub values: [Float; 16],
 }
@@ -97,6 +98,12 @@ macro_rules! impl_mat4 {
 						$(self.values[$attributes] / rhs.values[$attributes]),*
 					]
 				}
+			}
+		}
+
+		impl PartialEq for Matrix {
+			fn eq(&self, other: &Self) -> bool {
+				$(self.values[$attributes].equals(other.values[$attributes]))&&*
 			}
 		}
 	};

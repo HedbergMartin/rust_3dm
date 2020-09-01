@@ -53,18 +53,6 @@ macro_rules! impl_mat4 {
 			}
 		}
 
-		impl std::ops::Add<Matrix> for crate::Vector4 {
-			type Output = Matrix;
-		
-			fn add(self, rhs: Matrix) -> Self::Output {
-				Self::Output {values: 
-					[
-						$(rhs.values[$attributes]),*
-					]
-				}
-			}
-		}
-		
 		impl std::ops::Sub for Matrix {
 			type Output = Self;
 		
@@ -111,3 +99,17 @@ macro_rules! impl_mat4 {
 
 // A bit ugly but oh well..
 impl_mat4!(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
+
+//Custom vector * matrix operation
+impl std::ops::Mul<Matrix> for crate::Vector4 {
+	type Output = Self;
+
+	fn mul(self, rhs: Matrix) -> Self::Output {
+		Self {
+			x: self.x*rhs.values[0] + self.y*rhs.values[4] + self.z*rhs.values[8] + self.w*rhs.values[12],
+			y: self.x*rhs.values[1] + self.y*rhs.values[5] + self.z*rhs.values[9] + self.w*rhs.values[13],
+			z: self.x*rhs.values[2] + self.y*rhs.values[6] + self.z*rhs.values[10] + self.w*rhs.values[14],
+			w: self.x*rhs.values[3] + self.y*rhs.values[7] + self.z*rhs.values[11] + self.w*rhs.values[15],
+		}
+	}
+}

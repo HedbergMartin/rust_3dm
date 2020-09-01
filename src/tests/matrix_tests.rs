@@ -56,3 +56,11 @@ fn matrix_div() {
 	let res = Matrix::from([1.6, 3.2, 3.2, 3.2, 3.2, 1.6, 3.2, 3.2, 3.2, 3.2, 1.6, 3.2, 3.2, 3.2, 3.2, 1.6]);
 	assert_eq!(m / m2, res);
 }
+
+#[test]
+fn vector_mul() {
+	let v = crate::Vector4::from(1.0, 2.0, 3.0, 4.0);
+	let m = Matrix::from([6.0, -7.0, 2.0, 3.0, 0.0, 3.0, 9.0, 2.0,6.0, -7.0, 2.0, 3.0, 0.0, 3.0, 9.0, 2.0]);
+	let res = crate::Vector4::from(24.0, -10.0, 62.0, 24.0);
+	assert_eq!(v * m, res);
+}

@@ -28,6 +28,12 @@ macro_rules! vector {
 					$($attributes: value,)*
 				}
 			}
+		
+			pub fn from($($attributes: Float,)*) -> Self {
+				Self {
+					$($attributes,)*
+				}
+			}
 
 			pub fn dot(lhs: Self, rhs: Self) -> Float {
 				strip_plus!($(+ (lhs.$attributes * rhs.$attributes))*)

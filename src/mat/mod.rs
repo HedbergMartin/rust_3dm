@@ -38,84 +38,69 @@ impl Matrix {
 	}
 }
 
-impl std::ops::Add for Matrix {
-	type Output = Self;
-
-	fn add(self, rhs: Self) -> Self::Output {
-		Self {values: 
-			[
-				//TODO Use macro to be able to support N x M matrices
-				self.values[0] + rhs.values[0], self.values[1] + rhs.values[1], 
-				self.values[2] + rhs.values[2], self.values[3] + rhs.values[3], 
-				self.values[4] + rhs.values[4], self.values[5] + rhs.values[5], 
-				self.values[6] + rhs.values[6], self.values[7] + rhs.values[7],
-				self.values[8] + rhs.values[8], self.values[9] + rhs.values[9], 
-				self.values[10] + rhs.values[10], self.values[11] + rhs.values[11], 
-				self.values[12] + rhs.values[12], self.values[13] + rhs.values[13], 
-				self.values[14] + rhs.values[14], self.values[15] + rhs.values[15]
-			]
+macro_rules! impl_mat4 {
+	($($attributes:tt),*) => {
+		impl std::ops::Add for Matrix {
+			type Output = Self;
+		
+			fn add(self, rhs: Self) -> Self::Output {
+				Self {values: 
+					[
+						$(self.values[$attributes] + rhs.values[$attributes]),*
+					]
+				}
+			}
 		}
-	}
+
+		impl std::ops::Add<Matrix> for crate::Vector4 {
+			type Output = Matrix;
+		
+			fn add(self, rhs: Matrix) -> Self::Output {
+				Self::Output {values: 
+					[
+						$(rhs.values[$attributes]),*
+					]
+				}
+			}
+		}
+		
+		impl std::ops::Sub for Matrix {
+			type Output = Self;
+		
+			fn sub(self, rhs: Self) -> Self::Output {
+				Self {values: 
+					[
+						$(self.values[$attributes] - rhs.values[$attributes]),*
+					]
+				}
+			}
+		}
+		
+		impl std::ops::Mul for Matrix {
+			type Output = Self;
+		
+			fn mul(self, rhs: Self) -> Self::Output {
+				Self {values: 
+					[
+						$(self.values[$attributes] * rhs.values[$attributes]),*
+					]
+				}
+			}
+		}
+		
+		impl std::ops::Div for Matrix {
+			type Output = Self;
+		
+			fn div(self, rhs: Self) -> Self::Output {
+				Self {values: 
+					[
+						$(self.values[$attributes] / rhs.values[$attributes]),*
+					]
+				}
+			}
+		}
+	};
 }
 
-impl std::ops::Sub for Matrix {
-	type Output = Self;
-
-	fn sub(self, rhs: Self) -> Self::Output {
-		Self {values: 
-			[
-				//TODO Use macro to be able to support N x M matrices
-				self.values[0] - rhs.values[0], self.values[1] - rhs.values[1], 
-				self.values[2] - rhs.values[2], self.values[3] - rhs.values[3], 
-				self.values[4] - rhs.values[4], self.values[5] - rhs.values[5], 
-				self.values[6] - rhs.values[6], self.values[7] - rhs.values[7],
-				self.values[8] - rhs.values[8], self.values[9] - rhs.values[9], 
-				self.values[10] - rhs.values[10], self.values[11] - rhs.values[11], 
-				self.values[12] - rhs.values[12], self.values[13] - rhs.values[13], 
-				self.values[14] - rhs.values[14], self.values[15] - rhs.values[15]
-			]
-		}
-	}
-}
-
-impl std::ops::Mul for Matrix {
-	type Output = Self;
-
-	fn mul(self, rhs: Self) -> Self::Output {
-		Self {values: 
-			[
-				//TODO Use macro to be able to support N x M matrices
-				self.values[0] * rhs.values[0], self.values[1] * rhs.values[1], 
-				self.values[2] * rhs.values[2], self.values[3] * rhs.values[3], 
-				self.values[4] * rhs.values[4], self.values[5] * rhs.values[5], 
-				self.values[6] * rhs.values[6], self.values[7] * rhs.values[7],
-				self.values[8] * rhs.values[8], self.values[9] * rhs.values[9], 
-				self.values[10] * rhs.values[10], self.values[11] * rhs.values[11], 
-				self.values[12] * rhs.values[12], self.values[13] * rhs.values[13], 
-				self.values[14] * rhs.values[14], self.values[15] * rhs.values[15]
-			]
-		}
-	}
-}
-
-impl std::ops::Div for Matrix {
-	type Output = Self;
-
-	fn div(self, rhs: Self) -> Self::Output {
-		Self {values: 
-			[
-				//TODO Use macro to be able to support N x M matrices
-				self.values[0] / rhs.values[0], self.values[1] / rhs.values[1], 
-				self.values[2] / rhs.values[2], self.values[3] / rhs.values[3], 
-				self.values[4] / rhs.values[4], self.values[5] / rhs.values[5], 
-				self.values[6] / rhs.values[6], self.values[7] / rhs.values[7],
-				self.values[8] / rhs.values[8], self.values[9] / rhs.values[9], 
-				self.values[10] / rhs.values[10], self.values[11] / rhs.values[11], 
-				self.values[12] / rhs.values[12], self.values[13] / rhs.values[13], 
-				self.values[14] / rhs.values[14], self.values[15] / rhs.values[15]
-			]
-		}
-	}
-}
-
-
+// A bit ugly but oh well..
+impl_mat4!(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);

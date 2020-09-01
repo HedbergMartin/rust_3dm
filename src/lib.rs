@@ -1,5 +1,6 @@
 
-pub mod vector;
+mod vector;
+pub use vector::*;
 pub mod mat;
 
 #[cfg(test)]

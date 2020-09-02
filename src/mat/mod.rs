@@ -37,6 +37,20 @@ impl Matrix {
 			values,
 		}
 	}
+
+	pub fn projection(fov: Float, aspect_ratio: Float, f_near: Float, f_far: Float) -> Self{
+		let fov_rad = fov.to_radians();
+		
+		Self {
+			values: 
+			[
+				1.0 / (fov_rad/2.0).tan(), 0.0, 0.0, 0.0,
+				0.0, aspect_ratio / (fov_rad / 2.0).tan(), 0.0, 0.0,
+				0.0, 0.0, (f_near + f_far) / (f_near - f_far), (2.0 * f_near * f_far) / (f_near - f_far),
+				0.0, 0.0, -1.0, 1.0,
+			],
+		}
+	}
 }
 
 macro_rules! impl_mat4 {

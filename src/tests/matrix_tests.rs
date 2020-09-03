@@ -42,10 +42,11 @@ fn matrix_sub() {
 }
 
 #[test]
-fn matrix_mult() {
+fn matrix_mul() {
+	//{{3,2,-3,8},{2,-6,-3,-7},{3,4,5,-3},{-3, 2, 2, 2}}*{{3,-2,2,8},{2,-6,6,-7},{3,6,5,-3},{-3, 2, -1, 1}}
 	let m = Matrix::fill(3.2);
 	let m2 = Matrix::identity() + Matrix::fill(1.0);
-	let res = Matrix::from([6.4, 3.2, 3.2, 3.2, 3.2, 6.4, 3.2, 3.2, 3.2, 3.2, 6.4, 3.2, 3.2, 3.2, 3.2, 6.4]);
+	let res = Matrix::fill(16.0);
 	assert_eq!(m * m2, res);
 }
 
